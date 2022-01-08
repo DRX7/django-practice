@@ -1,0 +1,66 @@
+{% extends 'registration/base.html' %}
+
+
+{% block title %}صفحه مقالات  {% endblock %}
+
+
+{% block main %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Responsive Hover Table</h3>
+
+          <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>عنوان</th>
+                <th>آدرس عنوان</th>
+                <th>عکس</th>
+                <th>نویسنده</th>
+                <th>انتشار</th>
+                <th>دسته بندی</th>
+                <th>وضعیت</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for article in object_list %}
+              <tr>
+                <td>{{article.title}}</td>
+                <td>{{article.slug}}</td>
+                <td>{{article.image_tag}}</td>
+                <td>{{article.author.get_full_name}}</td>
+                <td>{{article.publish}}</td>
+                <td>{{article.str_category}}</td>
+                {% if article.status == 'p' %}
+                <td><span class="badge bg-success">منتشر شده</span>
+                <span class="badge bg-primary"><a href="{% url 'blog:detail' article.slug %}">نمایش مقاله</a></span>
+                </td>
+                {% else %}
+                <td><span class="badge bg-danger">پیش نویس</span></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+              
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+
+{% endblock %}
