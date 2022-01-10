@@ -1,7 +1,9 @@
 {% extends 'registration/base.html' %}
 
 
-{% block title %}صفحه مقالات  {% endblock %}
+{% block title %} {% block title-meta %}
+صفحه مقالات  
+{% endblock %} {% endblock %}
 
 
 {% block main %}
@@ -9,7 +11,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Responsive Hover Table</h3>
+          
 
           <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
@@ -30,6 +32,7 @@
                 <th>آدرس عنوان</th>
                 <th>عکس</th>
                 <th>نویسنده</th>
+                <th>توضیحات</th>
                 <th>انتشار</th>
                 <th>دسته بندی</th>
                 <th>وضعیت</th>
@@ -42,6 +45,7 @@
                 <td>{{article.slug}}</td>
                 <td>{{article.image_tag}}</td>
                 <td>{{article.author.get_full_name}}</td>
+                <td>{{article.description|safe|truncatewords:10}}</td>
                 <td>{{article.publish}}</td>
                 <td>{{article.str_category}}</td>
                 {% if article.status == 'p' %}

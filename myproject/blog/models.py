@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from account.models import User
 from django.utils import timezone
 from django.utils.html import format_html
+from django.urls import reverse
 # My Mangers
 class ArticleManager(models.Manager):
     def published(self):
@@ -66,8 +67,10 @@ class Article(models.Model):
         return format_html(f'<img src="{self.image.url}" width=100px height=75px>')
     image_tag.short_description = 'عکس'
 
-    def user_new_unicode(self):
-        return self.get_full_name()
+    
+
+    def get_absolute_url(self):
+        return reverse("account:home")
     
 
     objects = ArticleManager()
