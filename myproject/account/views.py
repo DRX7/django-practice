@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import render , get_object_or_404
 from django.views.generic import DetailView , ListView , CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from account.mixins import FieldsMixin , FormValidMixin
 
 from blog.models import Article
 # Create your views here.
@@ -17,7 +18,6 @@ class HomeAcc(LoginRequiredMixin,ListView):
             return Article.objects.filter(author=self.request.user)
     
 
-class ArticleCreate(LoginRequiredMixin , CreateView):
+class ArticleCreate(LoginRequiredMixin,FieldsMixin,FormValidMixin , CreateView):
     model = Article
-    fields = ['author' , 'title','slug' , 'category' , 'description' , 'image' , 'publish' , 'status']
     template_name = "registration/article_create_update.html"
