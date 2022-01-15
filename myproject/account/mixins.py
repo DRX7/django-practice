@@ -1,5 +1,6 @@
 from django.http import Http404
-
+from django.shortcuts import get_object_or_404
+from blog.models import Article
 class FieldsMixin:
     
     def dispatch(self, request, *args, **kwargs):
@@ -24,3 +25,15 @@ class FormValidMixin:
             self.obj.status = 'd'
         return super().form_valid(form)
             
+
+class ArticleAccessMixin:
+    def dispatch(self, request,pk, *args, **kwargs):
+        
+        article = get_object_or_404(Article , pk=pk)
+        if request.user == article.author and article.status == 'd' or \
+            request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)   
+        else:
+            raise Http404("This page is wrrong")
+
+

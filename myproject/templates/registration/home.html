@@ -41,7 +41,14 @@
             <tbody>
                 {% for article in object_list %}
               <tr>
-                <td>{{article.title}}</td>
+                
+                <td>
+                  {% if article.status == 'd' or user.is_superuser %}
+                    <a href="{% url 'account:article-update' article.pk %}">{{article.title}}</a>
+                  {% else %}
+                    {{article.title}}
+                  {% endif %}
+                </td>
                 <td>{{article.slug}}</td>
                 <td>{{article.image_tag}}</td>
                 <td>{{article.author.get_full_name}}</td>
@@ -56,6 +63,7 @@
                 <td><span class="badge bg-danger">پیش نویس</span></td>
                 {% endif %}
               </tr>
+              
               {% endfor %}
               
             </tbody>
