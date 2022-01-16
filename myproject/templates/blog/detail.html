@@ -17,7 +17,7 @@
             <div class="carousel-container">
               <div class="carousel-content container">
                 <h2 class="animate__animated animate__fadeInDown text-center">{{article.title}}</h2>
-                <p class="animate__animated animate__fadeInUp ">{{article.description|safe|truncatewords:15}}</p>
+                <!-- <p class="animate__animated animate__fadeInUp ">{{article.description|safe|truncatewords:15}}</p> -->
                 
               </div>
             </div>
@@ -42,7 +42,13 @@
 
             <div class="section-title">
               <h2>{{article.title}}</h2>
-              <p>{{article.description|safe}}</p>
+              {% if article.is_special %}
+                {% if user.is_authenticated and user.is_special_user or user == article.author or user.is_superuser %}
+                <p>{{article.description|safe}}</p>
+                {% else %}
+                <p>برای دیدن مقاله لطفا <a href="#">اشتراک ویژه</a> خریداری کنید</p>
+                {% endif %}
+              {% endif %}
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">

@@ -2,6 +2,7 @@ from account.models import User
 from django.views.generic import DetailView , ListView
 from blog.models import Article, Category
 from django.shortcuts import render , get_object_or_404
+from account.mixins import ArticleAccessMixin
 
 # Create your views here.
 
@@ -28,6 +29,13 @@ class ArticleDetail(DetailView):
     def get_object(self):
         slug = self.kwargs.get('slug')
         return Article.objects.filter(status='p' , slug=slug)
+
+class ArticlePreview(ArticleAccessMixin, DetailView):
+    template_name = 'blog/detail.html'
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return Article.objects.filter(pk=pk)
+
 
 
 

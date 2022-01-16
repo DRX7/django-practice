@@ -38,7 +38,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title' , 'slug','image_tag','author' , 'publish' , 'status' , 'str_category']
+    list_display = ['title' , 'slug','image_tag','author' , 'publish' , 'is_special','status' , 'str_category']
     list_filter = ['publish']
     search_fields = ['title' , 'description']
     actions = [make_published, make_drafted]

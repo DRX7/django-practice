@@ -6,10 +6,10 @@ class FieldsMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser:
             self.fields = ['author' , 'title','slug' , 'category' ,
-                            'description' , 'image' , 'publish' , 'status']
+                            'description' , 'image' ,'is_special' ,'publish' , 'status']
         elif request.user.is_author:
             self.fields = ['title','slug' , 'category' ,
-                            'description' , 'image' , 'publish' ,]
+                            'description' , 'image' ,'is_special' ,'publish' ,]
         else:
             raise Http404("This page just for Author")
         return super().dispatch(request, *args, **kwargs)
@@ -30,7 +30,7 @@ class ArticleAccessMixin:
     def dispatch(self, request,pk, *args, **kwargs):
         
         article = get_object_or_404(Article , pk=pk)
-        if request.user == article.author and article.status == 'd' or \
+        if request.user == article.author and article.status in ['d' , 'b'] or \
             request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)   
         else:

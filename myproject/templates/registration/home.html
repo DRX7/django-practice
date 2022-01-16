@@ -35,6 +35,7 @@
                 <th>نویسنده</th>
                 <th>توضیحات</th>
                 <th>انتشار</th>
+                <th>مقاله ویژه</th>
                 <th>دسته بندی</th>
                 <th>وضعیت</th>
               </tr>
@@ -44,7 +45,7 @@
               <tr>
                 
                 <td>
-                  {% if article.status == 'd' or user.is_superuser %}
+                  {% if article.status in 'db'|make_list or user.is_superuser %}
                     <a href="{% url 'account:article-update' article.pk %}">{{article.title}}</a>
                   {% else %}
                     {{article.title}}
@@ -55,15 +56,34 @@
                 <td>{{article.author.get_full_name}}</td>
                 <td>{{article.description|safe|truncatewords:10}}</td>
                 <td>{{article.publish}}</td>
+                <td>
+                  {% if article.is_special %}
+                  <span><i class="bi bi-patch-check-fill text-success"></i></span>
+                  {% else %}
+                  <span><i class="bi bi-x-circle-fill text-danger"></i></span>
+                  {% endif %}
+                </td>
                 <td>{{article.str_category}}</td>
                 <td>
                   {% if article.status == 'p' %}
                   <span class="badge bg-success">منتشر شده</span>
                   <br>
                 <span class="badge bg-primary"><a href="{% url 'blog:detail' article.slug %}">نمایش مقاله</a></span>
-                
+                {% elif article.status == 'i' %}
+                <span class="badge bg-info">در حال بررسی</span>
+                <br>
+                  {% if user.is_superuser %}
+                  <a class="badge bg-secondary" href="{% url 'blog:preview' article.pk %}">پیش نمایش</a>
+                  {% endif %}
                 {% else %}
+                  {% if article.status == 'd' %}
                 <span class="badge bg-danger">پیش نویس</span>
+                  {% else %}
+                  <span class="badge bg-warning">برگشت داده شده</span>
+                  {% endif %}
+
+                <br>
+                <a class="badge bg-secondary" href="{% url 'blog:preview' article.pk %}">پیش نمایش</a>
                 {% endif %}
 
                 {% if user.is_superuser %}

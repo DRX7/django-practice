@@ -39,8 +39,10 @@ class Category(models.Model):
 
 class Article(models.Model):
     CHOOSE_STATUS = (
-        ('p' , 'منشر شده'),
-        ('d' , 'پیش نویس')
+        ('d' , 'پیش نویس'),         # draft
+        ('p' , 'منشر شده'),         # publish
+        ('i' , 'در حال بررسی'),     # investigation
+        ('b' , 'برگشت داده شده'),   # back
     )
     author = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , verbose_name='نویسنده',related_name='articles')
     title = models.CharField(max_length=100 , verbose_name='عنوان')
@@ -50,6 +52,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='image' , verbose_name='عکس')
     publish = models.DateTimeField(default=timezone.now , verbose_name='انتشار')
     status = models.CharField(choices=CHOOSE_STATUS , max_length=1 , verbose_name='وضعیت')
+    is_special = models.BooleanField(verbose_name='مقاله ویژه' , default=False)
 
     class Meta:
         verbose_name = 'مقاله'
