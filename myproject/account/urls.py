@@ -1,11 +1,11 @@
 from django.contrib.auth import views
 from django.urls import path
 
-from account.views import ArticleCreate, HomeAcc , ArticleUpdate
+from account.views import ArticleCreate, ArticleDelete, HomeAcc , ArticleUpdate
 app_name = 'account'
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),
-    # path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
 
     # path('password_change/', views.PasswordChangeView.as_view(), name='password_change'),
     # path('password_change/done/', views.PasswordChangeDoneView.as_view(), name='password_change_done'),
@@ -20,4 +20,5 @@ urlpatterns += [
     path('account/' , HomeAcc.as_view() , name='home'),
     path('account/article/create' , ArticleCreate.as_view() , name='article-create'),
     path('account/article/update/<int:pk>' , ArticleUpdate.as_view() , name='article-update'),
+    path('account/article/delete/<int:pk>' , ArticleDelete.as_view() , name='article-delete'),
 ]

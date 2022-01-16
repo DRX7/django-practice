@@ -9,6 +9,7 @@
 {% block main %}
 <div class="row">
     <div class="col-12">
+      {% if object_list %}
       <div class="card">
         <div class="card-header">
           
@@ -55,13 +56,21 @@
                 <td>{{article.description|safe|truncatewords:10}}</td>
                 <td>{{article.publish}}</td>
                 <td>{{article.str_category}}</td>
-                {% if article.status == 'p' %}
-                <td><span class="badge bg-success">منتشر شده</span>
+                <td>
+                  {% if article.status == 'p' %}
+                  <span class="badge bg-success">منتشر شده</span>
+                  <br>
                 <span class="badge bg-primary"><a href="{% url 'blog:detail' article.slug %}">نمایش مقاله</a></span>
-                </td>
+                
                 {% else %}
-                <td><span class="badge bg-danger">پیش نویس</span></td>
+                <span class="badge bg-danger">پیش نویس</span>
                 {% endif %}
+
+                {% if user.is_superuser %}
+                <a href="{% url 'account:article-delete' article.pk %}" class="badge text-danger">حذف مقاله</a>
+
+                {% endif %}
+                </td>
               </tr>
               
               {% endfor %}
@@ -74,5 +83,8 @@
       <!-- /.card -->
     </div>
   </div>
+  {% else %}
+  <h2>محتوایی وجود ندارد</h2>
+  {% endif %}
 
 {% endblock %}

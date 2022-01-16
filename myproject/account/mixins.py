@@ -37,3 +37,14 @@ class ArticleAccessMixin:
             raise Http404("This page is wrrong")
 
 
+class ArticleAccessDeleteMixin:
+    def dispatch(self, request,pk, *args, **kwargs):
+        
+        if request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)   
+        else:
+            raise Http404("This page is wrrong")
+        
+        
+
+

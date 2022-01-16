@@ -61,6 +61,14 @@
         </div>
       </div>
     </form>
+    <ul class="navbar-nav mr-auto-navbav">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="{% url 'account:logout' %}">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
+      </li>
+    </ul>
 
     <!-- Right navbar links -->
     
@@ -99,11 +107,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.0-rc.1
-    </div>
+    {{request.resolver_match.url_name}}
   </footer>
 
   <!-- Control Sidebar -->
