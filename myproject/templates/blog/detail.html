@@ -44,7 +44,7 @@
               <h2>{{article.title}}</h2>
               {% if article.is_special %}
                 {% if user.is_authenticated and user.is_special_user or user == article.author or user.is_superuser %}
-                <p>{{article.description|safe}}</p>
+                <p >{{article.description|safe}}</p>
                 {% else %}
                 <p>برای دیدن مقاله لطفا <a href="#">اشتراک ویژه</a> خریداری کنید</p>
                 {% endif %}

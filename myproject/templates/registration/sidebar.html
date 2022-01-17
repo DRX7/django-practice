@@ -27,6 +27,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
+            {% if user.is_superuser or user.is_author %}
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -41,15 +42,10 @@
               <li class="nav-item">
                 {% link request 'article-create' 'افزودن مقاله' 'fa fa-edit nav-icon' %}
               </li>
+              {% endif %}
               
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-               پروفایل
-                <span class="right badge badge-danger">جدید</span>
-              </p>
-            </a>
+            {% link request 'profile' 'پروفایل' 'nav-icon fas fa-th' %}
           </li>
          
         </ul>
