@@ -16,7 +16,8 @@ from django.contrib.auth.views import LoginView
 from account.mixins import (FieldsMixin ,
                             FormValidMixin ,
                             ArticleAccessMixin,
-                            ArticleAccessDeleteMixin)
+                            ArticleAccessDeleteMixin,
+                            AuthorAccessMixin)
 
 from django.urls import reverse_lazy
 from blog.models import Article
@@ -24,7 +25,7 @@ from account.forms import ProfileForm
 # Create your views here.
 
 
-class HomeAcc(LoginRequiredMixin,ListView):
+class HomeAcc(AuthorAccessMixin,ListView):
     template_name = 'registration/home.html'
 
     def queryset(self):
@@ -34,7 +35,7 @@ class HomeAcc(LoginRequiredMixin,ListView):
             return Article.objects.filter(author=self.request.user)
     
 
-class ArticleCreate(LoginRequiredMixin,FieldsMixin,FormValidMixin , CreateView):
+class ArticleCreate(AuthorAccessMixin,FieldsMixin,FormValidMixin , CreateView):
     model = Article
     template_name = "registration/article_create_update.html"
 
