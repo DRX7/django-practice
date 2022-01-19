@@ -24,6 +24,10 @@
             <div class="form-group col-md-6 mb-0">
                 {{ form.email|as_crispy_field }}
             </div>
+            <div class="alert alert-warning col-6" role="alert">
+               برای تغییر گذرواژه لطفا <a href="{% url 'account:password_change' %}">اینجا</a>  کلیک کنید
+            </div>
+            <div class="col-6"></div>
             <div class="form-group col-md-6 mb-0">
                 {{ form.first_name|as_crispy_field }}
             </div>

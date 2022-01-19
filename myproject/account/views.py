@@ -11,7 +11,7 @@ from django.views.generic import (  DetailView ,
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from account.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView , PasswordChangeView
 
 from account.mixins import (FieldsMixin ,
                             FormValidMixin ,
@@ -75,5 +75,8 @@ class Login(LoginView):
             return reverse("account:home")
         else:
             return reverse("account:profile")
+
+class PasswordChange(PasswordChangeView):
+    success_url = reverse_lazy("account:password_change_done")
         
     
