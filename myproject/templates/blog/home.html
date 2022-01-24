@@ -73,7 +73,7 @@
 
             <div class="section-title">
               <h2><a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a></h2>
-              <p>{{article.description|truncatewords:30}}</p>
+              <p>{{article.description|striptags|truncatewords:30}}</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">

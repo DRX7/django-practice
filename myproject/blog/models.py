@@ -3,6 +3,11 @@ from account.models import User
 from django.utils import timezone
 from django.utils.html import format_html
 from django.urls import reverse
+
+#Comment Package
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
+
 # My Mangers
 class ArticleManager(models.Manager):
     def published(self):
@@ -53,7 +58,7 @@ class Article(models.Model):
     publish = models.DateTimeField(default=timezone.now , verbose_name='انتشار')
     status = models.CharField(choices=CHOOSE_STATUS , max_length=1 , verbose_name='وضعیت')
     is_special = models.BooleanField(verbose_name='مقاله ویژه' , default=False)
-
+    comments = GenericRelation(Comment)
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقالات'

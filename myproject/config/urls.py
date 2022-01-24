@@ -24,5 +24,6 @@ urlpatterns = [
     path('' ,include('django.contrib.auth.urls')),
     path('login/' ,Login.as_view() ,name="login"),
     path('register/' ,Register.as_view() ,name="register"),
-    path('activate/<uidb64>/<token>/',activate , name="activate")
+    path('activate/<uidb64>/<token>/',activate , name="activate"),
+    path('comment/', include('comment.urls')),
 ]

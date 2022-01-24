@@ -533,7 +533,7 @@ section {
   padding: 15px 0;
 }
 .about .section-title p {
-  text-align: left;
+  text-align: center !important;
   font-style: italic;
   color: #666;
 }
@@ -1294,4 +1294,7 @@ section {
 }
 #footer .credits a {
   color: #9eccf4;
+}
+.rtl-detail {
+  margin-right:0 !important;
 }
