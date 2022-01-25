@@ -10,7 +10,7 @@ from comment.mixins import CanCreateMixin, CanEditMixin, CanDeleteMixin
 from comment.responses import UTF8JsonResponse
 from comment.messages import EmailError
 from comment.views import CommentCreateMixin, BaseCommentView
-
+from django.core.mail import EmailMessage
 
 class CreateComment(CanCreateMixin, CommentCreateMixin):
     comment = None
@@ -42,6 +42,30 @@ class CreateComment(CanCreateMixin, CommentCreateMixin):
         )
         self.comment = self.perform_create(temp_comment, self.request)
         self.data = render_to_string(self.get_template_names(), self.get_context_data(), request=self.request)
+
+        article = self.comment.content_object
+        author_email = article.author.email
+        user_email = self.comment.user
+        # parent_email = 
+        if author_email:
+            email = EmailMessage(
+                        "دیدگاه جدید",
+                         f"دیدگاه جدیدی برای مقاله<{article.title}> شما ارسال شد.\n {"% url 'blog:detail',kwargs=article.slug %"}",
+                        to=[author_email]
+            )
+        email.send()
+
+        if user_email:
+            email = EmailMessage(
+                        "دیدگاه شما دریافت شد.",
+                         "دیدگاه شما دریافت شد و به زودی به آن پاسخ میدهیم با تشکر.",
+                        to=[user_email]
+            )
+        email.send()
+
+
+
+
         return UTF8JsonResponse(self.json())
 
     def form_invalid(self, form):
