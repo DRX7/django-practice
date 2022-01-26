@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_gravatar', 
     'comment',
+    'star_ratings',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -146,10 +147,14 @@ LOGOUT_REDIRECT_URL = "login"
 
 AUTH_USER_MODEL = 'account.User'
 
-
+#--------Email Setting-----------
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_USE_TLS = True
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+#---------Star Rating Setting---------
+STAR_RATINGS_STAR_HEIGHT = 16

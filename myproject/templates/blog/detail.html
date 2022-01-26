@@ -1,6 +1,7 @@
 {% extends 'blog/base.html'%}
 {% load static %}
 {% load comment_tags %}
+{% load ratings %}
 
 
 {% block main %}
@@ -18,6 +19,7 @@
             <div class="carousel-container">
               <div class="carousel-content container">
                 <h2 class="animate__animated animate__fadeInDown text-center">{{article.title}}</h2>
+                <div class="text-center">{% ratings article %}</div>
                 <!-- <p class="animate__animated animate__fadeInUp ">{{article.description|safe|truncatewords:15}}</p> -->
                 
               </div>
