@@ -3,7 +3,7 @@ from django.views.generic import DetailView , ListView
 from blog.models import Article, Category
 from django.shortcuts import render , get_object_or_404
 from account.mixins import ArticleAccessMixin
-
+from blog.models import IpAddress
 # Create your views here.
 
 
@@ -28,7 +28,13 @@ class ArticleDetail(DetailView):
 	template_name = 'blog/detail.html'
 	def get_object(self):
 		slug = self.kwargs.get('slug')
-		return Article.objects.filter(status='p' , slug=slug)
+		article = get_object_or_404(Article.objects.published() , slug=slug)
+		ip_address = self.request.user.ip_address
+		if ip_address not in article.hits.all():
+			article.hits.add(ip_address)
+
+
+		return article
 
 class ArticlePreview(ArticleAccessMixin, DetailView):
 	template_name = 'blog/detail.html'

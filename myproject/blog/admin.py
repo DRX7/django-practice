@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Article, Category
+from blog.models import Article, Category, IpAddress
 
 
 # Action Admin Panel 
@@ -47,3 +47,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(Article , ArticleAdmin)
 admin.site.register(Category , CategoryAdmin)
+admin.site.register(IpAddress)
