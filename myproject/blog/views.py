@@ -4,6 +4,7 @@ from blog.models import Article, Category
 from django.shortcuts import render , get_object_or_404
 from account.mixins import ArticleAccessMixin
 from blog.models import IpAddress
+from django.db.models import Q
 # Create your views here.
 
 
@@ -71,5 +72,24 @@ class AuthorList(ListView):
 		context = super().get_context_data(**kwargs)
 		context['author'] = author
 		return context
+
+
+
+
+class SearchList(ListView):
+	template_name = 'blog/searchlist.html'
+	paginate_by = 1
+	def get_queryset(self): # new
+		search = self.request.GET.get('q')
+		return Article.objects.filter(description__icontains=search)
+
+	def get_context_data(self , **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['search'] = self.request.GET.get('q')
+		return context
+
+
+
+		
 
 	   
