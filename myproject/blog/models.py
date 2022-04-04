@@ -46,7 +46,6 @@ class Category(models.Model):
 
 
 
-
 class Article(models.Model):
     CHOOSE_STATUS = (
         ('d' , 'پیش نویس'),         # draft
